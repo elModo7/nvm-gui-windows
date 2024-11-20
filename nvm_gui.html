@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	  <link href="bootstrap.min.css" rel="stylesheet">
+	  <link href="font-awesome.min.css" rel="stylesheet">
+	  <script src="jquery.min.js"></script>
+	  <script src="bootstrap.min.js"></script>
+
+	<style>
+	html,
+	body {
+	  width: 100%;
+	  height: 100%;
+	}
+
+	.title-btn {
+	  padding: 0.35em 1.0em;
+	  cursor: pointer;
+	  vertical-align: bottom;
+	  font-family: Webdings;
+	  font-size: 11pt;
+	}
+
+	.title-btn:hover {
+	  background: rgba(0, 0, 0, .2);
+	}
+
+	.title-btn-close:hover {
+	  background: #dc3545;
+	}
+	
+	.main_body {
+	  overflow-y: scroll; /* Add the ability to scroll */
+	}
+
+	/* Hide scrollbar for Chrome, Safari and Opera
+	.main_body::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	.main_body {
+	  -ms-overflow-style: none;  /* IE and Edge */
+	  scrollbar-width: none;  /* Firefox */
+	}
+	
+	.btn_install{
+		width: 100%;
+	}
+	
+	.btn_half_size{
+		width: 49%;
+	}
+	
+	.bd-example-modal-lg .modal-dialog{
+		display: table;
+		position: relative;
+		margin: 0 auto;
+		top: calc(50% - 24px);
+	}
+
+	.bd-example-modal-lg .modal-dialog .modal-content{
+		background-color: transparent;
+		border: none;
+	}
+	</style>
+	<script>
+		function unbindButtonEvents(){
+			$(".btn_install").unbind();
+			$(".btn_uninstall").unbind();
+			$(".btn_set_default").unbind();
+		}
+		
+		function bindButtonEvents(){
+			unbindButtonEvents();
+			$(".btn_install").click(function(){
+				stopPropagation();
+				var version = $(this).closest("tr").attr("id").slice(1);
+				ahk.installNodeVersion(version);
+			});
+			
+			$(".btn_uninstall").click(function(){
+				stopPropagation();
+				var version = $(this).closest("tr").attr("id").slice(1);
+				ahk.uninstallNodeVersion(version);
+			});
+			
+			$(".btn_set_default").click(function(){
+				stopPropagation();
+				var version = $(this).closest("tr").attr("id").slice(1);
+				ahk.useNodeVersion(version);
+			});
+		}
+		
+		function stopPropagation(){
+			event.preventDefault();
+			event.stopPropagation();
+			event.stopImmediatePropagation();
+		}
+		
+		function neutronGetInstalledNodeVersions(){
+			$("#btnUpdateList").addClass("d-none");
+			ahk.neutronGetInstalledNodeVersions();
+		}
+
+		function getDownloadableNodeVersions(){
+			$("#btnUpdateList").removeClass("d-none");
+			ahk.getDownloadableNodeVersions();
+		}
+		
+		function modal(){
+			$('.modal').modal('show');
+			setTimeout(function () {
+				$('.modal').modal('hide');
+			}, 3000);
+		}
+		
+		function showLoadingModal(){
+			$('.modal').modal('show');
+		}
+		
+		function hideLoadingModal(){
+			$('.modal').modal('hide');
+		}
+	</script>
+	</head>
+	<body class="d-flex flex-column main_body">
+	  <header>
+		<div class="d-flex align-items-stretch bg-dark text-white" oncontextmenu="return false;">
+		  <span id="wndTitle" class="flex-grow-1 px-2 py-1" onmousedown="neutron.DragTitleBar()">NVM GUI - elModo7 v1.0</span>
+		  <span class="title-btn" onclick="neutron.Minimize()">0</span>
+		  <span class="title-btn" onclick="neutron.Maximize()">1</span>
+		  <span class="title-btn title-btn-close" onclick="neutron.Close()">r</span>
+		</div>
+	  </header>
+	  <span id="programDataJson" class="d-none"></span>
+
+	  <div class="flex-grow-1 d-flex" oncontextmenu="return false;">
+		<div class="flex-grow-1 overflow-auto">
+		  <div class="tab-content container p-2" id="v-pills-tabContent">
+			<div>
+				<div class="float-left mb-1">
+					<button id="btnShowIntalled" class="btn btn-success" onClick="neutronGetInstalledNodeVersions()"><i class="fa fa-cloud-upload"></i> Installed</button>
+					<button id="btnShowDownload" class="btn btn-warning" onClick="getDownloadableNodeVersions()"><i class="fa fa-download"></i> Download</button>
+				</div>
+				<div class="float-right mb-1">
+					<button id="btnUpdateList" class="btn btn-light d-none" onClick="ahk.neutronDownloadNodeVersionList()"><i class="fa fa-download"></i> Update list</button>
+				</div>
+			</div>
+			<div style="height: 100px !important;">
+				<table id="myTable" class="table table-striped table-hover table-bordered">
+				  <thead class="thead-dark" style="overflow: scroll;">
+					<tr>
+						<th scope="col" style="width: 60%">Version</th>
+						<th scope="col" style="width: 40%">Action</th>
+					</tr>
+				  </thead>
+				  <tbody id="tableBody"></tbody>
+				</table>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <footer class="bg-body-tertiary text-center text-lg-start">
+		  <div class="d-flex justify-content-between align-items-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+			<div class="text-start">
+				<span id="nodeVersionText" class="text-body" href="#" onClick="ahk.goToGitHub()">Active Node.js version: <b class="text-success" id="nodeVersion">Unknown</b></span>
+			</div>
+			<div class="text-end">
+				<a class="text-body" href="#" onClick="ahk.goToNVMGithub()">Graphical Node Version Manager</a> - <a class="text-body" href="#" onClick="ahk.goToGitHub()"><b>elModo7 2024</b></a>
+			</div>
+		  </div>
+	  </footer>
+
+	  
+	  <div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content" style="width: 48px">
+				<span class="fa fa-spinner fa-spin fa-3x"></span>
+			</div>
+		</div>
+	  </div>
+	</body>
+</html>
