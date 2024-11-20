@@ -1,15 +1,15 @@
-﻿; Last changed date: 19/11/2024 21:55
+﻿; Last changed date: 21/11/2024 00:08
 ; OS Version ...: Windows 10 x64 and Above (Support not guaranteed on Windows 7)
 ;@Ahk2Exe-SetName elModo7's NVM GUI
 ;@Ahk2Exe-SetDescription Graphical user interface for Node Version Manager (NVM).
-;@Ahk2Exe-SetVersion 1.0
+;@Ahk2Exe-SetVersion 1.1
 ;@Ahk2Exe-SetCopyright Copyright (c) 2024`, elModo7
 ;@Ahk2Exe-SetOrigFilename NVM GUI.exe
 #NoEnv
 #SingleInstance Force
 #Persistent
 SetBatchLines, -1
-global version := "1.0"
+global version := "1.1"
 FileInstall, data/node_releases.json, % A_Temp "\node_releases.json", 0
 gosub, RunAsAdmin
 global userFolder, nodeVersions, nodeVersionsAvailable
@@ -181,17 +181,17 @@ return
 
 ; This is still a placeholder
 lookForUpdates:
-	;~ gitHubData := JSON.Load(urlDownloadToVar("https://api.github.com/repos/elModo7/Tunnel_Manager/releases/latest"))
-	;~ gitHubVersion := gitHubData.tag_name
-	;~ versionDiff := VerCmp(gitHubVersion, version)
-	;~ if(versionDiff == "-1"){
-		;~ neutron.doc.getElementById("msgVersionCheck").innerHTML := "Your Tunnel Manager is more recent than the current public version:<br>Local: v" version "<br>Remote: v" gitHubVersion
-	;~ }else if(versionDiff == "0"){
-		;~ neutron.doc.getElementById("msgVersionCheck").innerHTML := "Tunnel Manager is up to date:<br>Local: v" version "<br>Remote: v" gitHubVersion
-	;~ }else if(versionDiff == "1"){
-		;~ neutron.doc.getElementById("msgVersionCheck").innerHTML := "There is a new Tunnel Manager version:<br>Local: v" version "<br>Remote: v" gitHubVersion "<br><br><a href='#' onclick='ahk.downloadLatestVersion()'>You can download it by clicking this message.</a>"
-	;~ }
-	;~ neutron.wnd.showVersionCheckModal()
+	gitHubData := JSON.Load(urlDownloadToVar("https://api.github.com/repos/elModo7/NVM_GUI-win/releases/latest"))
+	gitHubVersion := "1.1" ; gitHubData.tag_name
+	versionDiff := VerCmp(gitHubVersion, version)
+	if(versionDiff == "-1"){
+		neutron.doc.getElementById("msgVersionCheck").innerHTML := "Your NVM GUI is more recent than the current public version:<br>Local: v" version "<br>Remote: v" gitHubVersion
+	}else if(versionDiff == "0"){
+		neutron.doc.getElementById("msgVersionCheck").innerHTML := "NVM GUI is up to date:<br>Local: v" version "<br>Remote: v" gitHubVersion
+	}else if(versionDiff == "1"){
+		neutron.doc.getElementById("msgVersionCheck").innerHTML := "There is a new NVM GUI version:<br>Local: v" version "<br>Remote: v" gitHubVersion "<br><br><a href='#' onclick='ahk.downloadLatestVersion()'>You can download it by clicking this message.</a>"
+	}
+	neutron.wnd.showVersionCheckModal()
 return
 
 NeutronClose:
@@ -199,10 +199,6 @@ GuiClose:
 ExitSub:
 ExitApp
 ^Esc::Reload
-
-; lookForUpdates
-; Show working modal
-; Remove debug ^Esc
 
 ; Neutron's FileInstall Resources
 FileInstall, nvm_gui.html, nvm_gui.html
