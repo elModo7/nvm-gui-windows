@@ -182,7 +182,7 @@ return
 ; This is still a placeholder
 lookForUpdates:
 	gitHubData := JSON.Load(urlDownloadToVar("https://api.github.com/repos/elModo7/NVM_GUI-win/releases/latest"))
-	gitHubVersion := "1.1" ; gitHubData.tag_name
+	gitHubVersion := gitHubData.tag_name
 	versionDiff := VerCmp(gitHubVersion, version)
 	if(versionDiff == "-1"){
 		neutron.doc.getElementById("msgVersionCheck").innerHTML := "Your NVM GUI is more recent than the current public version:<br>Local: v" version "<br>Remote: v" gitHubVersion
