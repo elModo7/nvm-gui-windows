@@ -2,14 +2,14 @@
 ; OS Version ...: Windows 10 x64 and Above (Support not guaranteed on Windows 7)
 ;@Ahk2Exe-SetName elModo7's NVM GUI
 ;@Ahk2Exe-SetDescription Graphical user interface for Node Version Manager (NVM).
-;@Ahk2Exe-SetVersion 1.1
+;@Ahk2Exe-SetVersion 1.2
 ;@Ahk2Exe-SetCopyright Copyright (c) 2024`, elModo7
 ;@Ahk2Exe-SetOrigFilename NVM GUI.exe
 #NoEnv
 #SingleInstance Force
 #Persistent
 SetBatchLines, -1
-global version := "1.1"
+global version := "1.2"
 FileInstall, data/node_releases.json, % A_Temp "\node_releases.json", 0
 gosub, RunAsAdmin
 global userFolder, nodeVersions, nodeVersionsAvailable
@@ -198,7 +198,6 @@ NeutronClose:
 GuiClose:
 ExitSub:
 ExitApp
-^Esc::Reload
 
 ; Neutron's FileInstall Resources
 FileInstall, nvm_gui.html, nvm_gui.html

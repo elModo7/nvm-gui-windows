@@ -111,18 +111,18 @@
 		}
 		
 		function modal(){
-			$('.modal').modal('show');
+			$('.loadingmodal').modal('show');
 			setTimeout(function () {
-				$('.modal').modal('hide');
+				$('.loadingmodal').modal('hide');
 			}, 3000);
 		}
 		
 		function showLoadingModal(){
-			$('.modal').modal('show');
+			$('.loadingmodal').modal('show');
 		}
 		
 		function hideLoadingModal(){
-			$('.modal').modal('hide');
+			$('.loadingmodal').modal('hide');
 		}
 		
 		function showVersionCheckModal(){
@@ -133,7 +133,7 @@
 	<body class="d-flex flex-column main_body">
 	  <header>
 		<div class="d-flex align-items-stretch bg-dark text-white" oncontextmenu="return false;">
-		  <span id="wndTitle" class="flex-grow-1 px-2 py-1" onmousedown="neutron.DragTitleBar()">NVM GUI - elModo7 v1.0</span>
+		  <span id="wndTitle" class="flex-grow-1 px-2 py-1" onmousedown="neutron.DragTitleBar()">NVM GUI - elModo7 v1.2</span>
 		  <span class="title-btn" onclick="neutron.Minimize()">0</span>
 		  <span class="title-btn" onclick="neutron.Maximize()">1</span>
 		  <span class="title-btn title-btn-close" onclick="neutron.Close()">r</span>
@@ -180,7 +180,7 @@
 	  </footer>
 
 	  
-	  <div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+	  <div class="modal loadingmodal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content" style="width: 48px">
 				<span class="fa fa-spinner fa-spin fa-3x"></span>
