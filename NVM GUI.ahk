@@ -1,4 +1,4 @@
-﻿; Last changed date: 21/11/2024 00:08
+﻿; Last changed date: 21/05/2025 00:28
 ; OS Version ...: Windows 10 x64 and Above (Support not guaranteed on Windows 7)
 ;@Ahk2Exe-SetName elModo7's NVM GUI
 ;@Ahk2Exe-SetDescription Graphical user interface for Node Version Manager (NVM).
