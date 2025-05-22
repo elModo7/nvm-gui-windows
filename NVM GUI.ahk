@@ -1,8 +1,8 @@
-﻿; Last changed date: 21/05/2025 00:28
+﻿; Last changed date: 21/05/2025 00:35
 ; OS Version ...: Windows 10 x64 and Above (Support not guaranteed on Windows 7)
 ;@Ahk2Exe-SetName elModo7's NVM GUI
 ;@Ahk2Exe-SetDescription Graphical user interface for Node Version Manager (NVM).
-;@Ahk2Exe-SetVersion 1.3
+;@Ahk2Exe-SetVersion 1.3.1
 ;@Ahk2Exe-SetCopyright Copyright (c) 2025`, elModo7
 ;@Ahk2Exe-SetOrigFilename NVM GUI.exe
 #NoEnv
@@ -22,6 +22,7 @@ Menu, Tray, Tip, NVM GUI elModo7 %version%
 Menu, Tray, Add, Hide, toggleVisibility
 Menu, Tray, Add, Look for Updates, lookForUpdates
 Menu, Tray, Add
+Menu, tray, add, % "v" version, showAboutScreen
 Menu, Tray, Add, Exit, ExitSub
 
 userFolder := setUserFolder()
@@ -43,6 +44,7 @@ Return
 #Include <JSON>
 #Include <Neutron>
 #Include <RunCMD>
+#Include <aboutScreen>
 
 nodeSelect:
 	if(A_GuiControlEvent == "DoubleClick"){

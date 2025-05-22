@@ -37,6 +37,10 @@ findAndRetNVMFolderPath(){
 	return ""
 }
 
+showAboutScreen:
+	showAboutScreen("NVM GUI - Windows v" version, "A graphical user interface for managing Node versions on Windows.")
+return
+
 RunAsAdmin:
 	params := ""
 	if 0>0
