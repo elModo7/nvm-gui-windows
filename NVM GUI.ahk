@@ -2,19 +2,19 @@
 ; OS Version ...: Windows 10 x64 and Above (Support not guaranteed on Windows 7)
 ;@Ahk2Exe-SetName elModo7's NVM GUI
 ;@Ahk2Exe-SetDescription Graphical user interface for Node Version Manager (NVM).
-;@Ahk2Exe-SetVersion 1.2
-;@Ahk2Exe-SetCopyright Copyright (c) 2024`, elModo7
+;@Ahk2Exe-SetVersion 1.3
+;@Ahk2Exe-SetCopyright Copyright (c) 2025`, elModo7
 ;@Ahk2Exe-SetOrigFilename NVM GUI.exe
 #NoEnv
 #SingleInstance Force
 #Persistent
 SetBatchLines, -1
-global version := "1.2"
+global version := "1.3"
 FileInstall, data/node_releases.json, % A_Temp "\node_releases.json", 0
 gosub, RunAsAdmin
 global userFolder, nodeVersions, nodeVersionsAvailable
 global isVisible := 1
-global windowTitle := "NVM GUI - elModo7 Soft"
+global windowTitle := "NVM GUI - elModo7 / VictorDevLog"
 
 ; Tray Menu
 Menu, Tray, NoStandard
@@ -55,8 +55,8 @@ nodeSelect:
 return
 
 checkNVMInstalled(userFolder){
-	if(!FileExist("C:\Users\" userFolder "\AppData\Roaming\nvm\nvm.exe")){
-		MsgBox 0x10, Fatal Error, NVM was not found!`n`nnvm.exe must be placed in this path:`n"C:\Users\" userFolder "\AppData\Roaming\nvm\nvm.exe"
+	if(findAndRetNVMLocation() == ""){
+		MsgBox 0x10, Fatal Error, NVM was not found!`n`nnvm.exe must be placed in one of theese paths:`n"C:\Users\" userFolder "\AppData\Roaming\nvm\nvm.exe"`n"C:\Users\" userFolder "\AppData\Local\nvm\nvm.exe"
 		MsgBox 0x24, Download NVM, Do you want to go to the downloads page to download NVM Windows?
 		IfMsgBox Yes, {
 			Run, https://github.com/coreybutler/nvm-windows/releases
@@ -73,7 +73,7 @@ neutronGetInstalledNodeVersions(unhandledParam := ""){
 getInstalledNodeVersions(userFolder){
 	global
 	tableHtmlInstalled := ""
-	Loop, Files, % "C:\Users\" userFolder "\AppData\Roaming\nvm\*", D
+	Loop, Files, % findAndRetNVMFolderPath() "\*", D
 	{
 			tableHtmlInstalled .= "<tr id='" A_LoopFileName "'><td>" A_LoopFileName "</td><td><button class='btn btn-secondary btn_half_size btn_set_default'><i class='fa fa-star'></i>  Set Default</button>  <button class='btn btn-danger btn_half_size btn_uninstall'><i class='fa fa-trash'></i>  Uninstall</button></td></tr>"
 	}

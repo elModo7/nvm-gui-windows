@@ -17,6 +17,26 @@ setUserFolder(){
 	return A_UserName
 }
 
+findAndRetNVMLocation(){
+	global userFolder
+	if (FileExist("C:\Users\" userFolder "\AppData\Roaming\nvm\nvm.exe")){
+		return "C:\Users\" userFolder "\AppData\Roaming\nvm\nvm.exe"
+	} else if (FileExist("C:\Users\" userFolder "\AppData\Local\nvm\nvm.exe")){
+		return "C:\Users\" userFolder "\AppData\Local\nvm\nvm.exe"
+	}
+	return ""
+}
+
+findAndRetNVMFolderPath(){
+	global userFolder
+	if (FileExist("C:\Users\" userFolder "\AppData\Roaming\nvm")){
+		return "C:\Users\" userFolder "\AppData\Roaming\nvm"
+	} else if (FileExist("C:\Users\" userFolder "\AppData\Local\nvm")){
+		return "C:\Users\" userFolder "\AppData\Local\nvm"
+	}
+	return ""
+}
+
 RunAsAdmin:
 	params := ""
 	if 0>0
