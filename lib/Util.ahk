@@ -13,6 +13,10 @@ setUserFolder(){
 		return A_UserName "." getDomain()
 	}else if(FileExist("C:\Users\" A_UserName "\AppData\Roaming\nvm\nvm.exe")){
 		return A_UserName ; Maybe I change this for a portable NVM path select
+	}else if(FileExist("C:\Users\" A_UserName "." getDomain() "\AppData\Local\nvm\nvm.exe")){
+		return A_UserName "." getDomain()
+	}else if(FileExist("C:\Users\" A_UserName "\AppData\Local\nvm\nvm.exe")){
+		return A_UserName ; Maybe I change this for a portable NVM path select
 	}
 	return A_UserName
 }
